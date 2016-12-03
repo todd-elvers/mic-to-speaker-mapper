@@ -5,4 +5,6 @@ to an arbitrary speaker on your computer.
 
 #### How to run it
 
-Either build the JAR and execute, run `Startup.java`, or `cd` to the project root and run `./gradlew run`.
+- `cd` to the project root and execute `gradlew run`
+
+Optionally, you could execute `gradlew jar` and then execute the JAR directly. 
