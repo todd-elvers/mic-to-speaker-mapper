@@ -6,12 +6,7 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-/**
- * Notes:
- * - Mixer capable of recording audio if target LineWavelet length != 0
- * - Mixer capable of audio playback if source LineWavelet length != 0
- */
-public class AudioDeviceFinder {
+class AudioDeviceFinder {
 
     private static final Predicate<Mixer> onlyMixersThatSupportTargetDataLine = mixer -> {
         return Arrays.stream(mixer.getTargetLineInfo()).anyMatch(lineInfo -> {
@@ -24,7 +19,7 @@ public class AudioDeviceFinder {
         });
     };
 
-    public List<Mixer> findMicrophones() {
+    static List<Mixer> findMicrophones() {
         return Arrays
                 .stream(AudioSystem.getMixerInfo())
                 .map(AudioSystem::getMixer)
@@ -35,12 +30,12 @@ public class AudioDeviceFinder {
 
     }
 
-    public List<Mixer> findSpeakers() {
+    static List<Mixer> findSpeakers() {
         return Arrays
                 .stream(AudioSystem.getMixerInfo())
                 .map(AudioSystem::getMixer)
-                .filter(mixer -> mixer.getTargetLineInfo().length == 0)
-                .filter(mixer -> mixer.getSourceLineInfo().length != 0)
+                .filter(mixer -> mixer.getTargetLineInfo().length == 0)    // Cannot record
+                .filter(mixer -> mixer.getSourceLineInfo().length != 0)    // Can playback
                 .collect(Collectors.toList());
 
     }
