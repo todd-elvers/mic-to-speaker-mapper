@@ -3,38 +3,14 @@ apply plugin: 'groovy'
 apply plugin: 'idea'
 apply plugin: 'application'
 
-mainClassName = 'te.mic_to_speaker.Startup'
-
 repositories {
     mavenCentral()
-}
-
-dependencies {
-//    compile 'org.codehaus.groovy:groovy-all:2.4.4'
-//
-//    // Logging
-//    compile 'org.slf4j:slf4j-api:1.7.12'
-//    compile 'ch.qos.logback:logback-classic:1.1.3'
-//
-//    // Misc.
-//    compile 'com.google.guava:guava:18.0'
-//    compile 'commons-io:commons-io:2.4'
-//    compile 'org.apache.commons:commons-lang3:3.4'
-
-    // Spock
-    testCompile 'cglib:cglib-nodep:3.2.0'
-    testCompile 'org.objenesis:objenesis:2.2'
-    testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
-}
-
-idea {
-    module {
-        downloadJavadoc = true
-        downloadSources = true
-    }
 }
 
 // Wire stdin to our run task's System.in
 run {
     standardInput = System.in
 }
+
+// Adds capability to build m2sm.jar & m2sm.exe
+apply from: 'build-executable.gradle'

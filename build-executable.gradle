@@ -1,0 +1,25 @@
+String mainClassName = 'te.audio.m2sm.Startup'
+String jarName = 'm2sm.jar'
+String exeName = 'm2sm.exe'
+
+jar {
+    archiveName jarName
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+}
+
+task buildExe(type: Exec, dependsOn: [':jar']) {
+    final jarFile = new File(buildDir, 'libs/'+jarName)
+    commandLine "g2exe", "--fileToConvert", "$jarFile"
+}
+
+task deploy(type: Copy, dependsOn:[':buildExe']) {
+    description "Build $exeName and move it to system tools"
+    doFirst {
+        println("Deploying $exeName to '${System.getenv('SYSTEM_TOOLS')}'")
+    }
+
+    from "${buildDir}/libs/$exeName"
+    into "${System.getenv('SYSTEM_TOOLS')}"
+}
