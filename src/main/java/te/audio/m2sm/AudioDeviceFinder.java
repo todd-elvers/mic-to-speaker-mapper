@@ -11,6 +11,16 @@ import java.util.stream.Collectors;
 
 class AudioDeviceFinder {
 
+    public static List<Microphone> findUsableMicrophones() {
+        return Arrays.stream(AudioSystem.getMixerInfo())
+                .map(AudioSystem::getMixer)
+                .filter(mixer -> mixer.getTargetLineInfo().length != 0)     // Can record
+                .filter(mixer -> mixer.getSourceLineInfo().length == 0)     // Can not playback
+                .filter(onlyMixersThatSupportTargetDataLine)
+                .map(Microphone::new)
+                .collect(Collectors.toList());
+    }
+
     private static final Predicate<Mixer> onlyMixersThatSupportTargetDataLine = mixer -> {
         return Arrays.stream(mixer.getTargetLineInfo()).anyMatch(lineInfo -> {
             try {
@@ -22,20 +32,8 @@ class AudioDeviceFinder {
         });
     };
 
-    static List<Microphone> findUsableMicrophones() {
-        return Arrays
-                .stream(AudioSystem.getMixerInfo())
-                .map(AudioSystem::getMixer)
-                .filter(mixer -> mixer.getTargetLineInfo().length != 0)     // Can record
-                .filter(mixer -> mixer.getSourceLineInfo().length == 0)     // Can not playback
-                .filter(onlyMixersThatSupportTargetDataLine)
-                .map(Microphone::new)
-                .collect(Collectors.toList());
-    }
-
-    static List<Speaker> findUsableSpeakers() {
-        return Arrays
-                .stream(AudioSystem.getMixerInfo())
+    public static List<Speaker> findUsableSpeakers() {
+        return Arrays.stream(AudioSystem.getMixerInfo())
                 .map(AudioSystem::getMixer)
                 .filter(mixer -> mixer.getTargetLineInfo().length == 0)    // Cannot record
                 .filter(mixer -> mixer.getSourceLineInfo().length != 0)    // Can playback

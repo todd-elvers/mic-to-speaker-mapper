@@ -2,7 +2,7 @@ package te.audio.m2sm.domain;
 
 import javax.sound.sampled.*;
 
-public class Microphone implements AudioDevice {
+public class Microphone implements AudioDevice, AutoCloseable {
     private TargetDataLine connection = null;
     private Mixer mixer;
 
@@ -12,15 +12,14 @@ public class Microphone implements AudioDevice {
 
     public int read(byte[] b) {
         if(connection == null) {
-            throw new IllegalStateException("Cannot read to a null microphone connection");
+            throw new IllegalStateException("Write failed: connection is null.");
         }
 
         return connection.read(b, 0, b.length);
     }
 
-    @Override
-    public Mixer getMixer() {
-        return mixer;
+    public String getName() {
+        return mixer.getMixerInfo().getName();
     }
 
     public byte[] getByteBuffer() {
