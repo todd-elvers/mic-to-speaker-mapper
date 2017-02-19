@@ -1,16 +1,11 @@
 apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'idea'
-apply plugin: 'application'
 
 repositories {
     mavenCentral()
 }
 
-// Wire stdin to our run task's System.in
-run {
-    standardInput = System.in
-}
-
+// Adds capability to run on command line via `./gradlew run`
 // Adds capability to build m2sm.jar & m2sm.exe
 apply from: 'build-executable.gradle'

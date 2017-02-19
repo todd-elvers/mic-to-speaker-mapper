@@ -1,4 +1,12 @@
-String mainClassName = 'te.audio.m2sm.Startup'
+apply plugin: 'application'
+
+// Wire stdin to our run task's System.in
+run {
+    standardInput = System.in
+}
+
+mainClassName = 'te.audio.m2sm.Startup'
+
 String jarName = 'm2sm.jar'
 String exeName = 'm2sm.exe'
 
