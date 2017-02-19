@@ -1,4 +1,4 @@
-package te.audio.m2sm.domain;
+package te.audio.m2sm.core.domain;
 
 import javax.sound.sampled.*;
 

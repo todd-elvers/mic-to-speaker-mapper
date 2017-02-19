@@ -5,29 +5,35 @@ run {
     standardInput = System.in
 }
 
-mainClassName = 'te.audio.m2sm.Startup'
+ext {
+    mainClassName = 'te.audio.m2sm.Startup'
+    appName = 'm2sm'
+    deployDir = System.getenv('SYSTEM_TOOLS')
+}
 
-String jarName = 'm2sm.jar'
-String exeName = 'm2sm.exe'
 
 jar {
-    archiveName jarName
+    archiveName "${appName}.jar"
+    from files(sourceSets.main.output.classesDir as Object)
+    from files(sourceSets.main.output.resourcesDir as Object)
+    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+
     manifest {
         attributes 'Main-Class': mainClassName
     }
 }
 
-task buildExe(type: Exec, dependsOn: [':jar']) {
-    final jarFile = new File(buildDir, 'libs/'+jarName)
-    commandLine "g2exe", "--fileToConvert", "$jarFile"
+task exe(type: Exec, dependsOn: [':jar']) {
+    final jarFile = new File(buildDir, "libs/${appName}.jar")
+    commandLine "g2exe", "--fileToConvert", /"${jarFile}"/
 }
 
-task deploy(type: Copy, dependsOn:[':buildExe']) {
-    description "Build $exeName and move it to system tools"
+task deploy(type: Copy, dependsOn: [':exe']) {
+    description "Build ${appName}.exe and move it to system tools"
     doFirst {
-        println("Deploying $exeName to '${System.getenv('SYSTEM_TOOLS')}'")
+        println("Deploying ${appName}.exe to '${deployDir}'")
     }
 
-    from "${buildDir}/libs/$exeName"
-    into "${System.getenv('SYSTEM_TOOLS')}"
+    from "${buildDir}/libs/${appName}.exe"
+    into deployDir
 }

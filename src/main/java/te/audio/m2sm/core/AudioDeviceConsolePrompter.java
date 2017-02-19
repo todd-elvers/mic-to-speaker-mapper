@@ -1,15 +1,15 @@
-package te.audio.m2sm;
+package te.audio.m2sm.core;
 
-import te.audio.m2sm.domain.AudioDevice;
-import te.audio.m2sm.domain.Microphone;
-import te.audio.m2sm.domain.Speaker;
+import te.audio.m2sm.core.domain.AudioDevice;
+import te.audio.m2sm.core.domain.Microphone;
+import te.audio.m2sm.core.domain.Speaker;
 
 import java.io.BufferedReader;
 import java.util.List;
 
-class AudioDeviceConsolePrompter extends ConsolePrompter {
+public class AudioDeviceConsolePrompter extends ConsolePrompter {
 
-    static Microphone promptForMicrophoneSelection(BufferedReader console) {
+    public static Microphone promptForMicrophoneSelection(BufferedReader console) {
         List<Microphone> microphonesToChooseFrom = AudioDeviceFinder.findUsableMicrophones();
 
         System.out.println("Microphones found on your system:");
@@ -20,7 +20,7 @@ class AudioDeviceConsolePrompter extends ConsolePrompter {
         );
     }
 
-    static Speaker promptForSpeakerSelection(BufferedReader console) {
+    public static Speaker promptForSpeakerSelection(BufferedReader console) {
         List<Speaker> speakersToChooseFrom = AudioDeviceFinder.findUsableSpeakers();
 
         System.out.println("Speakers found on your system:");

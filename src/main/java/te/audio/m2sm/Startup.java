@@ -1,8 +1,9 @@
 package te.audio.m2sm;
 
 
-import te.audio.m2sm.domain.Microphone;
-import te.audio.m2sm.domain.Speaker;
+import te.audio.m2sm.core.AudioDeviceConsolePrompter;
+import te.audio.m2sm.core.domain.Microphone;
+import te.audio.m2sm.core.domain.Speaker;
 
 import java.io.BufferedReader;
 import java.io.IOException;

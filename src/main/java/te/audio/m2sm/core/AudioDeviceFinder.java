@@ -1,7 +1,7 @@
-package te.audio.m2sm;
+package te.audio.m2sm.core;
 
-import te.audio.m2sm.domain.Microphone;
-import te.audio.m2sm.domain.Speaker;
+import te.audio.m2sm.core.domain.Microphone;
+import te.audio.m2sm.core.domain.Speaker;
 
 import javax.sound.sampled.*;
 import java.util.Arrays;
