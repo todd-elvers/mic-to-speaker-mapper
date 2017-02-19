@@ -12,7 +12,7 @@ public class Microphone implements AudioDevice, AutoCloseable {
 
     public int read(byte[] b) {
         if(connection == null) {
-            throw new IllegalStateException("Write failed: connection is null.");
+            throw new IllegalStateException("Read failed: connection is null.");
         }
 
         return connection.read(b, 0, b.length);
