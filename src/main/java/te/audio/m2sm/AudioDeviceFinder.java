@@ -24,8 +24,7 @@ class AudioDeviceFinder {
     private static final Predicate<Mixer> onlyMixersThatSupportTargetDataLine = mixer -> {
         return Arrays.stream(mixer.getTargetLineInfo()).anyMatch(lineInfo -> {
             try {
-                return mixer.getLine(lineInfo) instanceof TargetDataLine
-                        && mixer.isLineSupported(lineInfo);
+                return mixer.getLine(lineInfo) instanceof TargetDataLine && mixer.isLineSupported(lineInfo);
             } catch (LineUnavailableException e) {
                 return false;
             }

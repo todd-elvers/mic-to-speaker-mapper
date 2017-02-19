@@ -65,10 +65,10 @@ abstract class ConsolePrompter {
             }
 
             if (userSelectedOption == null) {
-                System.out.print("Invalid selection, please try again.\n> ");
+                System.out.print("\nInvalid selection, please try again.\n> ");
             }
         }
-        System.out.println("You selected: " + optionToString.apply(userSelectedOption) + "\n");
+        System.out.println("\nYou selected: " + optionToString.apply(userSelectedOption) + "\n");
 
         return userSelectedOption;
     }
