@@ -3,8 +3,14 @@
 A small, command-line application that allows you to map an arbitrary microphone
 to an arbitrary speaker on your computer.
 
-#### How to run it
+### How to run it
 
+- Download the latest release JAR or, if your OS is Windows, the latest EXE from
+the *release* tab
+
+**OR**
+
+- clone the project to a directory
 - `cd` to the project root and execute `gradlew run`
 
 Optionally, you could execute `gradlew jar` and then execute the JAR directly.
