@@ -1,17 +1,18 @@
 apply plugin: 'application'
 
-// Wire stdin to our run task's System.in
-run {
-    standardInput = System.in
-}
-
+// Config
 ext {
     mainClassName = 'te.audio.m2sm.Startup'
     appName = 'm2sm'
     deployDir = System.getenv('SYSTEM_TOOLS')
 }
 
+// Modify the :run task to use our stdin
+run {
+    standardInput = System.in
+}
 
+// Modify the :jar task to include all compile dependencies (a.k.a. fatJar, uberJar)
 jar {
     archiveName "${appName}.jar"
     from files(sourceSets.main.output.classesDir as Object)
@@ -23,13 +24,19 @@ jar {
     }
 }
 
+/**
+ * Converts the JAR file into an Windows EXE file using g2exe.
+ */
 task exe(type: Exec, dependsOn: [':jar']) {
     final jarFile = new File(buildDir, "libs/${appName}.jar")
     commandLine "g2exe", "--fileToConvert", /"${jarFile}"/
 }
 
+/**
+ * Deploy the newly created Windows EXE file to a given directory.
+ */
 task deploy(type: Copy, dependsOn: [':exe']) {
-    description "Build ${appName}.exe and move it to system tools"
+    description "Build ${appName}.exe and move it to '${deployDir}'"
     doFirst {
         println("Deploying ${appName}.exe to '${deployDir}'")
     }
