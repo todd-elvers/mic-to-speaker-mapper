@@ -1,11 +1,9 @@
 apply plugin: 'application'
 
 // Config
-ext {
-    mainClassName = 'te.audio.m2sm.Startup'
-    appName = 'm2sm'
-    deployDir = System.getenv('SYSTEM_TOOLS')
-}
+mainClassName = 'te.audio.m2sm.Startup'
+String appName = 'm2sm'
+String deployDir = System.getenv('SYSTEM_TOOLS')
 
 // Modify the :run task to use our stdin
 run {
