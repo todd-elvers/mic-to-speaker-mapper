@@ -1,4 +1,4 @@
-package te.audio.m2sm.core;
+package te.audio.m2sm.core.console;
 
 import java.io.BufferedReader;
 import java.util.List;

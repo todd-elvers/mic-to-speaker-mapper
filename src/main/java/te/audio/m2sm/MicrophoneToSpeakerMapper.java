@@ -8,18 +8,11 @@ import javax.sound.sampled.*;
 
 class MicrophoneToSpeakerMapper {
 
-    public void map(Microphone microphone, Speaker speaker) {
-        try {
-            speaker.connect();
-            microphone.connect();
+    public void map(Microphone microphone, Speaker speaker) throws LineUnavailableException {
+        speaker.connect();
+        microphone.connect();
 
-            readFromMicrophoneAndWriteToSpeaker(microphone, speaker);
-        } catch (LineUnavailableException e) {
-            e.printStackTrace();
-        } finally {
-            speaker.close();
-            microphone.close();
-        }
+        readFromMicrophoneAndWriteToSpeaker(microphone, speaker);
     }
 
     private void readFromMicrophoneAndWriteToSpeaker(Microphone microphone, Speaker speaker) {

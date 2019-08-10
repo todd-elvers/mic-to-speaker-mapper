@@ -10,14 +10,15 @@ public class Microphone implements AudioDevice, AutoCloseable {
         this.mixer = mixer;
     }
 
-    public int read(byte[] b) {
+    public int read(byte[] bytes) {
         if(connection == null) {
-            throw new IllegalStateException("Read failed: connection is null.");
+            throw new IllegalStateException("Cannot read bytes from a null connection.");
         }
 
-        return connection.read(b, 0, b.length);
+        return connection.read(bytes, 0, bytes.length);
     }
 
+    @Override
     public String getName() {
         return mixer.getMixerInfo().getName();
     }
@@ -26,10 +27,11 @@ public class Microphone implements AudioDevice, AutoCloseable {
         return new byte[connection.getBufferSize() / 5];
     }
 
+    @Override
     public void connect() throws LineUnavailableException {
-        DataLine.Info dataLineInfo = new DataLine.Info(TargetDataLine.class, FORMAT);
+        DataLine.Info dataLineInfo = new DataLine.Info(TargetDataLine.class, getFormat());
         connection = (TargetDataLine) mixer.getLine(dataLineInfo);
-        connection.open(FORMAT);
+        connection.open(getFormat());
         connection.start();
     }
 

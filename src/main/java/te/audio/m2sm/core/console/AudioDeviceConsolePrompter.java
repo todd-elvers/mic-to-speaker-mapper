@@ -1,5 +1,6 @@
-package te.audio.m2sm.core;
+package te.audio.m2sm.core.console;
 
+import te.audio.m2sm.core.AudioDeviceFinder;
 import te.audio.m2sm.core.domain.AudioDevice;
 import te.audio.m2sm.core.domain.Microphone;
 import te.audio.m2sm.core.domain.Speaker;
